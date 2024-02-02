@@ -1,8 +1,19 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { db } from './firebase';
+import { collection, getDocs, query } from "firebase/firestore"; 
+
+const GetData = async () => {
+  const q = query(collection(db, `users`))
+  const querySnapshot = await getDocs(q)
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  })
+}
 
 function App() {
+  GetData()
   return (
     <div className="App">
       <header className="App-header">
